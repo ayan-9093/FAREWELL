@@ -1,5 +1,11 @@
- const cursor = document.getElementById('cursor');
+  const cursor = document.getElementById('cursor');
   const cursorRing = document.getElementById('cursorRing');
+  // Hide custom cursor on touch devices
+  if (window.matchMedia('(pointer: coarse)').matches) {
+    cursor.style.display = 'none';
+    cursorRing.style.display = 'none';
+    document.body.style.cursor = 'auto';
+  }
   let mx=0,my=0,rx=0,ry=0;
   document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
   function animCursor(){
@@ -10,10 +16,37 @@
   }
   animCursor();
 
-  // Rose petals
+  // ── HAMBURGER MENU ──
+  const hamburger = document.getElementById('hamburger');
+  const drawer    = document.getElementById('mobileDrawer');
+  const backdrop  = document.getElementById('drawerBackdrop');
+
+  function openDrawer() {
+    hamburger.classList.add('open');
+    drawer.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer() {
+    hamburger.classList.remove('open');
+    drawer.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', () =>
+    drawer.classList.contains('open') ? closeDrawer() : openDrawer()
+  );
+  backdrop.addEventListener('click', closeDrawer);
+  document.querySelectorAll('.drawer-link').forEach(a =>
+    a.addEventListener('click', closeDrawer)
+  );
+  // close on Escape
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+  // Rose petals — fewer on mobile for performance
   const hero = document.getElementById('hero');
   const colors = ['#e8a0a7','#f2c4cb','#c4737a','#d4a0aa','#f5d5d8','#b85c72'];
-  for(let i=0;i<20;i++){
+  const petalCount = window.innerWidth < 768 ? 8 : 20;
+  for(let i=0;i<petalCount;i++){
     const p=document.createElement('div');
     p.className='petal';
     p.style.left=Math.random()*100+'%';
