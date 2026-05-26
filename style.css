@@ -1117,3 +1117,235 @@
     .countdown-grid { gap: 0.6rem; }
     .count-sep { display: none; }
   }
+/* FORM CONTAINER */
+.tribute-form-wrap{
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 50px;
+    border-radius: 24px;
+    background:
+        linear-gradient(135deg,
+        rgba(60,0,20,0.95),
+        rgba(25,0,15,0.95));
+    border: 1px solid rgba(255,180,200,0.15);
+    backdrop-filter: blur(15px);
+    box-shadow:
+        0 0 40px rgba(255,80,120,0.15),
+        inset 0 0 40px rgba(255,255,255,0.03);
+}
+
+/* TITLE */
+.form-title{
+    text-align:center;
+    font-size:3rem;
+    color:#ffe4ea;
+    font-family: "Playfair Display", serif;
+    margin-bottom:40px;
+    position:relative;
+}
+
+.form-title::after{
+    content:"";
+    display:block;
+    width:120px;
+    height:1px;
+    background:rgba(255,190,210,0.3);
+    margin:20px auto 0;
+}
+
+/* GRID */
+/* FORM GRID */
+.form-row{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+/* TABLET */
+@media (max-width: 992px){
+    .form-row{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+/* MOBILE */
+@media (max-width: 768px){
+
+    .tribute-form-wrap{
+        width:95%;
+        margin:30px auto;
+        padding:25px 18px;
+        border-radius:18px;
+    }
+
+    .form-title{
+        font-size:2rem;
+        margin-bottom:30px;
+    }
+
+    .form-row{
+        grid-template-columns:1fr;
+        gap:15px;
+    }
+
+    .form-group input,
+    .form-group textarea{
+        padding:15px;
+        font-size:15px;
+    }
+
+    .quote-area textarea{
+        min-height:130px;
+    }
+
+    .form-footer{
+        flex-direction:column;
+        align-items:stretch;
+        gap:12px;
+    }
+
+    .char-count,
+    .status-msg{
+        text-align:center;
+    }
+
+    .submit-btn{
+        width:100%;
+        padding:15px;
+        font-size:16px;
+    }
+}
+
+/* SMALL PHONES */
+@media (max-width: 480px){
+
+    .tribute-form-wrap{
+        padding:20px 15px;
+    }
+
+    .form-title{
+        font-size:1.7rem;
+    }
+
+    .form-group label{
+        font-size:11px;
+        letter-spacing:2px;
+    }
+
+    .form-group input,
+    .form-group textarea{
+        font-size:14px;
+        padding:14px;
+    }
+
+    .submit-btn{
+        font-size:15px;
+        padding:14px;
+    }
+}
+
+/* LABELS */
+.form-group label{
+    display:block;
+    margin-bottom:10px;
+    color:#f5c1cf;
+    font-size:12px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+}
+
+/* INPUTS */
+.form-group input,
+.form-group textarea{
+    width:100%;
+    padding:18px 20px;
+    border-radius:12px;
+    border:1px solid rgba(255,180,200,0.15);
+    background:rgba(255,255,255,0.04);
+    color:#fff;
+    font-size:16px;
+    outline:none;
+    transition:.3s;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder{
+    color:rgba(255,220,230,0.35);
+    font-style:italic;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+    border-color:#ff7ca6;
+    box-shadow:0 0 20px rgba(255,124,166,.25);
+}
+
+/* TEXTAREA */
+.quote-area textarea{
+    min-height:160px;
+    resize:none;
+}
+
+/* FOOTER */
+.form-footer{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-top:25px;
+    flex-wrap:wrap;
+}
+
+.char-count{
+    color:#f0b9c8;
+    font-size:14px;
+}
+
+.status-msg{
+    color:#ffc8d6;
+    font-size:14px;
+}
+
+/* BUTTON */
+.submit-btn{
+    padding:16px 36px;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    color:#fff;
+    background:linear-gradient(
+        135deg,
+        #ff5f8f,
+        #ff88ac
+    );
+    box-shadow:0 10px 25px rgba(255,95,143,.3);
+    transition:.3s;
+}
+
+.submit-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 35px rgba(255,95,143,.45);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+    .tribute-form-wrap{
+        padding:25px;
+    }
+
+    .form-title{
+        font-size:2rem;
+    }
+
+    .form-footer{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .submit-btn{
+        width:100%;
+    }
+}

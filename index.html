@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Farewell '26 — Rose & Memories</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -111,7 +112,7 @@
         </div>
         <div class="detail-item">
           <p class="detail-label">Venue</p>
-          <p class="detail-value">Grand Atrium Hall</p>
+          <p class="detail-value">JC BOSE AUDITORIUM</p>
         </div>
         <div class="detail-item">
           <p class="detail-label">Dress Code</p>
@@ -262,34 +263,70 @@
     </div>
   </div>
 </section>
+ 
 
-<!-- TRIBUTES -->
 <section>
   <div id="tributes" class="max-w">
     <p class="section-label">From the Heart</p>
     <h2 class="section-title">Words &amp; <em>Tributes</em></h2>
-    <div class="tributes-grid">
-      <div class="tribute-card"><span class="tribute-num">01</span>
+
+    <!-- SUBMISSION FORM -->
+    <div class="tribute-form-wrap">
+      <p class="form-title">Leave your tribute</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="inp-name" placeholder="e.g. Arjun Mehta" maxlength="60"/>
+        </div>
+        <div class="form-group">
+          <label>Department</label>
+          <input type="text" id="inp-dept" placeholder="e.g. ECE" maxlength="60"/>
+        </div>
+        <div class="form-group">
+          <label>Batch</label>
+          <input type="text" id="inp-batch" placeholder="e.g. 2022–26" maxlength="30"/>
+        </div>
+      </div>
+      <div class="form-group quote-area">
+        <label>Your Tribute</label>
+        <textarea id="inp-quote" placeholder="Share a memory, a feeling, a thank-you…" maxlength="300"></textarea>
+      </div>
+      <div class="form-footer">
+        <span class="char-count"><span id="char-used">0</span> / 300</span>
+        <div id="status-msg" class="status-msg"></div>
+        <button class="submit-btn" id="submit-btn" onclick="submitTribute()">Submit Tribute</button>
+      </div>
+    </div>
+
+    <!-- TRIBUTES GRID -->
+    <div class="tributes-grid" id="tributes-grid">
+      <div class="tribute-card">
+        <span class="tribute-num">01</span>
         <p class="tribute-quote">These four years taught me more than any textbook ever could. The friendships forged here are for a lifetime.</p>
         <p class="tribute-name">Arjun Mehta</p><p class="tribute-dept">ECE · Batch 2022–26</p>
       </div>
-      <div class="tribute-card"><span class="tribute-num">02</span>
+      <div class="tribute-card">
+        <span class="tribute-num">02</span>
         <p class="tribute-quote">I arrived a girl and leave a woman. This college gave me wings I didn't know I had.</p>
         <p class="tribute-name">Priya Sharma</p><p class="tribute-dept">Literature · Batch 2022–26</p>
       </div>
-      <div class="tribute-card"><span class="tribute-num">03</span>
+      <div class="tribute-card">
+        <span class="tribute-num">03</span>
         <p class="tribute-quote">Every late night, every exam, every laugh in the corridors — I wouldn't trade any of it.</p>
         <p class="tribute-name">Rohan Das</p><p class="tribute-dept">Economics · Batch 2022–26</p>
       </div>
-      <div class="tribute-card"><span class="tribute-num">04</span>
+      <div class="tribute-card">
+        <span class="tribute-num">04</span>
         <p class="tribute-quote">To my professors who believed in me even when I didn't — thank you from the bottom of my heart.</p>
         <p class="tribute-name">Sneha Patel</p><p class="tribute-dept">Psychology · Batch 2022–26</p>
       </div>
-      <div class="tribute-card"><span class="tribute-num">05</span>
+      <div class="tribute-card">
+        <span class="tribute-num">05</span>
         <p class="tribute-quote">The canteen, the library, the grounds — these places will forever be home to a piece of my soul.</p>
         <p class="tribute-name">Kabir Singh</p><p class="tribute-dept">Physics · Batch 2022–26</p>
       </div>
-      <div class="tribute-card"><span class="tribute-num">06</span>
+      <div class="tribute-card">
+        <span class="tribute-num">06</span>
         <p class="tribute-quote">We came as strangers. We leave as family. That is the greatest gift this college ever gave us.</p>
         <p class="tribute-name">Ananya Roy</p><p class="tribute-dept">Fine Arts · Batch 2022–26</p>
       </div>
@@ -301,7 +338,7 @@
 <section id="countdown">
   <p class="section-label">Time Remaining</p>
   <h2 class="section-title">Farewell <em>Countdown</em></h2>
-  <p style="font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(249,224,226,0.4);margin-top:0.5rem;font-size:0.95rem;">Until June 28, 2026 · 5:30 PM</p>
+  <p style="font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(249,224,226,0.4);margin-top:0.5rem;font-size:0.95rem;">Until June 9, 2026 · 1:00 PM</p>
   <div class="countdown-grid">
     <div class="count-unit"><span class="count-num" id="cd-days">00</span><span class="count-label">Days</span></div>
     <span class="count-sep">:</span>

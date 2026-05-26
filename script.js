@@ -66,7 +66,7 @@
   reveals.forEach(el=>io.observe(el));
 
   function updateCountdown(){
-    const diff=new Date('2026-06-28T17:30:00')-new Date();
+    const diff=new Date('2026-06-09T13:00:00')-new Date();
     if(diff<=0){['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id=>document.getElementById(id).textContent='00');return;}
     document.getElementById('cd-days').textContent=String(Math.floor(diff/86400000)).padStart(2,'0');
     document.getElementById('cd-hours').textContent=String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
@@ -136,3 +136,109 @@
   }
 
   updateCountBadge();
+
+  // Character counter
+  const quoteEl = document.getElementById('inp-quote');
+  const charUsed = document.getElementById('char-used');
+  quoteEl.addEventListener('input', () => { charUsed.textContent = quoteEl.value.length; });
+
+  // Tribute counter (starts at 6 pre-existing cards)
+  let tributeCount = 6;
+
+  function showStatus(type, msg) {
+    const el = document.getElementById('status-msg');
+    el.className = 'status-msg ' + type;
+    el.textContent = msg;
+  }
+  function hideStatus() {
+    const el = document.getElementById('status-msg');
+    el.className = 'status-msg';
+    el.textContent = '';
+  }
+
+  async function submitTribute() {
+    const name  = document.getElementById('inp-name').value.trim();
+    const dept  = document.getElementById('inp-dept').value.trim();
+    const batch = document.getElementById('inp-batch').value.trim();
+    const quote = quoteEl.value.trim();
+
+    if (!name || !quote) { showStatus('error', 'Please enter your name and tribute.'); return; }
+    if (quote.length < 10) { showStatus('error', 'Tribute is a little short — write from the heart!'); return; }
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    showStatus('loading', '✦ Adding your tribute…');
+
+    // Optional: polish the quote via Claude API (gracefully skip on failure)
+    let finalQuote = quote;
+    try {
+      const resp = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 200,
+          messages: [{
+            role: 'user',
+            content: `You are a gentle editor for a college farewell yearbook. 
+Lightly polish the following student tribute — fix obvious typos and grammar only. 
+Keep the voice, emotions, and meaning 100% intact. 
+Return ONLY the polished tribute text, nothing else, no quotes around it.
+
+Tribute: ${quote}`
+          }]
+        })
+      });
+      if (resp.ok) {
+        const data = await resp.json();
+        const polished = data?.content?.[0]?.text?.trim();
+        if (polished && polished.length > 5) finalQuote = polished;
+      }
+    } catch (_) { /* network off — use original */ }
+
+    // Build card
+    tributeCount++;
+    const num = String(tributeCount).padStart(2, '0');
+    const deptBatch = [dept, batch ? 'Batch ' + batch : ''].filter(Boolean).join(' · ');
+
+    const card = document.createElement('div');
+    card.className = 'tribute-card';
+    card.style.animationDelay = '0s';
+    card.innerHTML = `
+      <span class="new-badge">New</span>
+      <span class="tribute-num">${num}</span>
+      <p class="tribute-quote">${escHtml(finalQuote)}</p>
+      <p class="tribute-name">${escHtml(name)}</p>
+      ${deptBatch ? `<p class="tribute-dept">${escHtml(deptBatch)}</p>` : ''}
+    `;
+
+    const grid = document.getElementById('tributes-grid');
+    // Remove empty state if present
+    const empty = grid.querySelector('.empty-state');
+    if (empty) empty.remove();
+
+    grid.prepend(card);
+
+    // Re-number badges (skip new card)
+    setTimeout(() => {
+      const badge = card.querySelector('.new-badge');
+      if (badge) {
+        setTimeout(() => badge.remove(), 4000);
+      }
+    }, 0);
+
+    // Reset form
+    document.getElementById('inp-name').value  = '';
+    document.getElementById('inp-dept').value  = '';
+    document.getElementById('inp-batch').value = '';
+    quoteEl.value = '';
+    charUsed.textContent = '0';
+
+    btn.disabled = false;
+    showStatus('success', '✦ Your tribute has been added!');
+    setTimeout(hideStatus, 3500);
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
