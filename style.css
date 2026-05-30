@@ -423,7 +423,7 @@
   }
 
   /* ── MEMORIES ── */
-  #memories {
+#memories {
     background:
       radial-gradient(ellipse 90% 50% at 50% 0%, rgba(139,74,92,0.1) 0%, transparent 60%),
       var(--dark);
